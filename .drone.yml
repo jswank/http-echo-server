@@ -1,0 +1,29 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: download-dependencies
+    image: go:1.13
+    environment:
+      - GO111MODULE: on
+    commands:
+      - go mod download
+    volumes:
+      - name: cache
+        path: /go
+  - name: build
+    image: go:1.13
+    environment:
+      - GO111MODULE: on
+    commands:
+      - go build
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - pull_request
+    volumes:
+      - name: cache
+        path: /go
+
