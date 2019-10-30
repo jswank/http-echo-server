@@ -1,6 +1,5 @@
 kind: pipeline
 name: default
-
 steps:
   - name: download-dependencies
     image: go:1.13
